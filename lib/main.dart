@@ -53,7 +53,10 @@ class SomePage extends StatelessWidget {
         title: Text(title),
       ),
       body: Center(
-        child: Text('uri: $uri'),
+        child: Text(
+          'uri: $uri',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
       ),
     );
   }
