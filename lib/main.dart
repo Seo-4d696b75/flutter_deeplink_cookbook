@@ -9,15 +9,16 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (_, __) => const SomePage(title: 'Home'),
+      builder: (_, state) => SomePage(title: 'Home', uri: state.uri),
       routes: [
         GoRoute(
           path: 'details',
-          builder: (_, __) => const SomePage(title: 'Details'),
+          builder: (_, state) => SomePage(title: 'Details', uri: state.uri),
         ),
       ],
     ),
   ],
+  errorBuilder: (_, state) => SomePage(title: 'Not Found', uri: state.uri),
 );
 
 class MyApp extends StatelessWidget {
@@ -36,9 +37,14 @@ class MyApp extends StatelessWidget {
 }
 
 class SomePage extends StatelessWidget {
-  const SomePage({Key? key, required this.title}) : super(key: key);
+  const SomePage({
+    Key? key,
+    required this.title,
+    required this.uri,
+  }) : super(key: key);
 
   final String title;
+  final Uri uri;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +52,9 @@ class SomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: const Placeholder(),
+      body: Center(
+        child: Text('uri: $uri'),
+      ),
     );
   }
 }
